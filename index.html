@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI vs Humanity</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+    <style>
+        /* Toggle Button Style */
+        #toggle-chat {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #toggle-chat:hover {
+            background-color: #45a049;
+        }
+
+        /* Chat Iframe Style with Sliding Animation */
+        #chat-frame {
+            position: fixed;
+            bottom: 20px;
+            right: -400px; /* Start hidden off-screen */
+            width: 350px;
+            height: 650px;
+            border: none;
+            z-index: 999;
+            transition: right 0.5s ease; /* Smooth slide-in */
+        }
+
+        /* When chat is active, slide in */
+        #chat-frame.active {
+            right: 20px; /* Slide in to show */
+        }
+
+        /* Hide game sections initially */
+        .game-content {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Homepage Section -->
+    <section id="home-section" class="active">
+        <h1>Welcome to AI vs Humanity</h1>
+        <p>Explore the world of AI and Humanity. Choose a section to begin:</p>
+        <button class="nav-button" onclick="navigateTo('info-section')">Information</button>
+        <button class="nav-button" onclick="navigateTo('quiz-section')">Take the Quiz</button>
+        <button class="nav-button" onclick="navigateTo('game-section')">Play the AI Game</button>
+    </section>
+
+     <!-- Information Section -->
+     <section id="info-section" class="hidden">
+        <h2>Understanding AI vs Humanity</h2>
+        <p>This section explores the core differences, strengths, and characteristics of Artificial Intelligence (AI) and Humanity.</p>
+        
+        <h3>1. Capabilities</h3>
+        <ul>
+            <li><strong>AI:</strong> Excels at tasks involving massive data processing, pattern recognition, and automation. AI can work tirelessly on repetitive tasks, ensuring high speed and precision without fatigue.</li>
+            <li><strong>Humans:</strong> Known for creativity, problem-solving, empathy, and ethical reasoning. Humans bring intuition, emotional understanding, and the ability to think abstractly to complex scenarios.</li>
+        </ul>
+
+        <h3>2. Decision-Making</h3>
+        <ul>
+            <li><strong>AI:</strong> Relies on data-driven algorithms and pre-programmed logic. AI decisions are objective and consistent, based on its training and the data provided.</li>
+            <li><strong>Humans:</strong> Often incorporate subjective reasoning, emotions, and personal values. Human decisions may vary across individuals and can adapt to unique, unforeseen situations.</li>
+        </ul>
+
+        <h3>3. Limitations</h3>
+        <ul>
+            <li><strong>AI:</strong> Limited by its programming, data input, and potential biases in its training data. AI may struggle with abstract thinking or scenarios outside its learned context.</li>
+            <li><strong>Humans:</strong> Limited by physical and mental endurance, and can be influenced by biases and emotions, which may lead to inconsistency or error under stress.</li>
+        </ul>
+
+        <h3>4. Future Implications</h3>
+        <ul>
+            <li><strong>AI:</strong> AI’s advancement brings potential for improved efficiency across industries but also raises ethical concerns, such as job displacement and privacy.</li>
+            <li><strong>Humans:</strong> Humanity’s role will evolve to collaborate more closely with AI, fostering innovation while maintaining control and ethical responsibility over AI's application.</li>
+        </ul>
+
+        <button class="nav-button" onclick="navigateTo('home-section')">Back to Home</button>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="quiz-section" class="hidden">
+        <h2 id="question-title">Quiz: AI vs Humanity</h2>
+        <div id="score">Score: 0</div>
+        <button id="option1" class="quiz-button" onclick="checkAnswer(0)">Option 1</button>
+        <button id="option2" class="quiz-button" onclick="checkAnswer(1)">Option 2</button>
+        <button class="nav-button" onclick="navigateTo('home-section')">Back to Home</button>
+    </section>
+
+    <!-- AI Game Section -->
+    <section id="game-section" class="hidden">
+        <h2>AI Game Center</h2>
+        <p>Choose a game to play:</p>
+        <button class="nav-button" onclick="showGame('number-guessing')">AI Number Guessing Game</button>
+        <button class="nav-button" onclick="showGame('tetris')">Tetris Game</button>
+
+        <!-- Number Guessing Game -->
+        <div id="number-guessing" class="game-content">
+            <h3>AI Number Guessing Game</h3>
+            <p>AI has generated a random number between 1 and 50. Try to guess it!</p>
+            <input type="number" id="guessInput" placeholder="Enter your guess">
+            <button onclick="guessNumber()">Submit Guess</button>
+            <p id="gameFeedback"></p>
+        </div>
+
+        <!-- Tetris Game -->
+        <div id="tetris" class="game-content">
+            <h3>Tetris Game</h3>
+            <canvas id="tetrisCanvas" width="200" height="400"></canvas>
+            <p>Use arrow keys to control the blocks!</p>
+        </div>
+
+        <button class="nav-button" onclick="navigateTo('home-section')">Back to Home</button>
+    </section>
+
+    <!-- Botpress Chat Embed Toggle Button and Iframe -->
+    <button id="toggle-chat" onclick="toggleChat()">Toggle AI Chat</button>
+    <iframe id="chat-frame" src="https://cdn.botpress.cloud/webchat/v2.2/shareable.html?configUrl=https://files.bpcontent.cloud/2024/10/25/17/20241025175628-9LJT7CI1.json"></iframe>
+
+    <script>
+        // Toggle Chat with Slide Animation
+        function toggleChat() {
+            const chatFrame = document.getElementById('chat-frame');
+            chatFrame.classList.toggle('active'); // Toggle the 'active' class to slide in/out
+        }
+
+        // Show selected game and hide the others
+        function showGame(gameId) {
+            document.querySelectorAll('.game-content').forEach(game => game.style.display = 'none');
+            document.getElementById(gameId).style.display = 'block';
+        }
+    </script>
+</body>
+</html>
